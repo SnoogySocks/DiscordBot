@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const prefix = '-';
 const fs = require("fs");
+const ServerLog = require("./ServerLog.js");
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -31,17 +32,20 @@ client.on("message", message => {
 
 });
 
+client.on("messageDelete", message => {
+
+    yes = new ServerLog();
+
+});
+
 // Read file for token
-let token;
 fs.readFile("C:/Users/felix/OneDrive/Documents/confidential/discordBotToken.json", "utf8", (err, jsonString) => {
 
     if (err) {
         console.log("File read failed.", err);
         return;
     }
-
-    token = JSON.parse(jsonString).token;
-    client.login(token);
+    client.login(JSON.parse(jsonString).token);
 
 });
 
