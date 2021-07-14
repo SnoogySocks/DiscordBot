@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const prefix = '-';
 const fs = require("fs");
-const ServerLog = require("./ServerLog.js");
+const serverLog = require("./ServerLog.js");
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -33,9 +33,9 @@ client.on("message", message => {
 });
 
 client.on("messageDelete", message => {
-
-    yes = new ServerLog();
-
+    if (!message.author.bot) {
+        serverLog.insertDeletedMessage(message);
+    }
 });
 
 // Read file for token

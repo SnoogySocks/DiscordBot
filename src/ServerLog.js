@@ -1,13 +1,13 @@
 const db = require("./../app.js");
 
 // Returns the string with all symbols escaped
-const escapifySymbols = (msgContents) => {
+const escapifySymbols = msgContents => {
     const regex = /(?=['"`\\])/g;
     return msgContents.replace(regex, '\\');
 }
 
 // Returns the picture URL if the inputted argument is a picture. Else, returns the message contents
-const urlifyPicture = (message) => {
+const urlifyPicture = message => {
 
     // If there are no attachments, provide just the content
     if (message.attachments.size === 0) {
@@ -22,23 +22,27 @@ const urlifyPicture = (message) => {
 
 }
 
-module.exports = class {
-
-    constructor () {
-    }
+module.exports = {
 
     insertDeletedMessage (message) {
+
+        console.log(message);
 
         const sql = ` INSERT INTO deleted_messages VALUES(
             ${message.id}, 
             ${message.author.id}, 
             "${escapifySymbols(message.author.username)}",
-            "${escapifySymbols(urlifyPicture(message.content))}",
+            "${escapifySymbols(urlifyPicture(message))}",
             "${message.channel.name}",
             "${message.timestamp.substring(10)}
         );`;
 
-        db.query(sql, (err, result) => { });
+        db.query(sql, (err, result) => {
+            if (err) {
+                throw err;
+            }
+            console.log(result);
+         });
         
     }
 
