@@ -14,7 +14,7 @@ for (const file of commandFiles) {
 }
 
 // Execute only once
-client.once("ready", () => console.log("Jacky's Ass is online"));
+client.once("ready", () => console.log(`${client.name} is online`));
 
 // Command handler
 client.on("message", message => {

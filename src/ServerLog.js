@@ -26,21 +26,17 @@ module.exports = {
 
     insertDeletedMessage (message) {
 
-        console.log(message);
-
-        const sql = ` INSERT INTO deleted_messages VALUES(
-            ${message.id}, 
+        const sql = ` INSERT INTO deleted_messages(user_id, username, message, channel) VALUES( 
             ${message.author.id}, 
             "${escapifySymbols(message.author.username)}",
             "${escapifySymbols(urlifyPicture(message))}",
-            "${message.channel.name}",
-            "${message.timestamp.substring(10)}
+            "${message.channel.name}"
         );`;
 
         db.query(sql, (err, result) => {
             if (err) {
                 throw err;
-            }
+            }   
             console.log(result);
          });
         
