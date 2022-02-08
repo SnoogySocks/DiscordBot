@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const prefix = '-';
 const fs = require("fs");
-const serverLog = require("./ServerLog.js");
+// const serverLog = require("./ServerLog.js");
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -32,11 +32,11 @@ client.on("message", message => {
 
 });
 
-client.on("messageDelete", message => {
-    if (!message.author.bot) {
-        serverLog.insertDeletedMessage(message);
-    }
-});
+// client.on("messageDelete", message => {
+//     if (!message.author.bot) {
+//         serverLog.insertDeletedMessage(message);
+//     }
+// });
 
 // Read file for token
 fs.readFile("C:/Users/felix/OneDrive/Documents/confidential/discordBotToken.json", "utf8", (err, jsonString) => {
